@@ -150,8 +150,6 @@ export const addComment = async (req, res) => {
     }
 };
 
-
-
 // @desc    Update a movie
 // @route   PUT /api/movies/:id
 // @access  Private
