@@ -1,17 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../services/api";
-import MovieGrid from "./MovieGrid";
+import React, { useEffect, useState } from 'react';
+import { getFanFavouriteMovies } from '../../services/api';
+import MovieGrid from './MovieGrid';
+import '../../styles/movies.css';
 
-export default function FanFavourite() {
+const FanFavourite = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    async function load() {
-      const { data } = await api.get("/movies", { params: { category: "fan-favourite" } });
-      setMovies(data);
-    }
-    load();
+    const fetchMovies = async () => {
+      try {
+        const { data } = await getFanFavouriteMovies();
+        setMovies(data);
+      } catch (error) {
+        console.error('Failed to fetch fan favourite movies:', error);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
-  return <MovieGrid movies={movies} />;
-}
+  return (
+    <div className="movie-grid-container">
+      <h2>Fan Favourites</h2>
+      <div className="movie-grid">
+        {movies.map((movie) => (
+          <MovieGrid key={movie._id} movie={movie} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FanFavourite;

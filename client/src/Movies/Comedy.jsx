@@ -1,17 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../services/api";
-import MovieGrid from "./MovieGrid";
+import React, { useEffect, useState } from 'react';
+import { getMoviesByGenre } from '../../services/api';
+import MovieGrid from './MovieGrid';
+import '../../styles/movies.css';
 
-export default function Comedy() {
+const Comedy = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    async function load() {
-      const { data } = await api.get("/movies", { params: { genre: "Comedy" } });
-      setMovies(data);
-    }
-    load();
+    const fetchMovies = async () => {
+      try {
+        // Use the new function to get movies by genre
+        const { data } = await getMoviesByGenre('Comedy');
+        setMovies(data);
+      } catch (error) {
+        console.error('Failed to fetch comedy movies:', error);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
-  return <MovieGrid movies={movies} />;
-}
+  return (
+    <div className="movie-grid-container">
+      <h2>Comedy Movies</h2>
+      <div className="movie-grid">
+        {movies.map((movie) => (
+          <MovieGrid key={movie._id} movie={movie} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Comedy;

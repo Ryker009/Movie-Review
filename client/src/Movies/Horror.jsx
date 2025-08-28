@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../services/api";
-import MovieGrid from "./MovieGrid";
+import React, { useEffect, useState } from 'react';
+import { getMoviesByGenre } from '../../services/api';
+import MovieGrid from './MovieGrid';
+import '../../styles/movies.css';
 
-export default function Horror() {
+const Horror = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function load() {
+    const fetchMovies = async () => {
       try {
-        setLoading(true);
-        setError(null);
-        const { data } = await api.get("/movies", { params: { genre: "Horror" } });
+        const { data } = await getMoviesByGenre('Horror');
         setMovies(data);
-      } catch (err) {
-        console.error("Error fetching horror movies:", err);
-        setError("Failed to load horror movies. Please try again later.");
-      } finally {
-        setLoading(false);
+      } catch (error) => {
+        console.error('Failed to fetch horror movies:', error);
       }
-    }
-    load();
+    };
+
+    fetchMovies();
   }, []);
 
-  if (loading) {
-    return <div className="container-HORROR">Loading...</div>;
-  }
+  return (
+    <div className="movie-grid-container">
+      <h2>Horror Movies</h2>
+      <div className="movie-grid">
+        {movies.map((movie) => (
+          <MovieGrid key={movie._id} movie={movie} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-  if (error) {
-    return <div className="container error">{error}</div>;
-  }
-
-  if (movies.length === 0) {
-    return <div className="container">No horror movies found.</div>;
-  }
-
-  return <MovieGrid movies={movies} />;
-}
+export default Horror;

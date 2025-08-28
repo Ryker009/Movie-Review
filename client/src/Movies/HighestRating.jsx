@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../services/api.js";
-import MovieGrid from "./MovieGrid";
+import React, { useEffect, useState } from 'react';
+import { getHighestRatedMovies } from '../../services/api';
+import MovieGrid from './MovieGrid';
+import '../../styles/movies.css';
 
-export default function HighestRating() {
+const HighestRating = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    load();
+    const fetchMovies = async () => {
+      try {
+        const { data } = await getHighestRatedMovies();
+        setMovies(data);
+      } catch (error) => {
+        console.error('Failed to fetch highest rated movies:', error);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
-  async function load() {
-    const { data } = await api.get("/movies", { params: { sort: "highest" } });
-    setMovies(data);
-  }
-
   return (
-    <div>
-      <h2>Highest Rated Movies</h2>
-      <MovieGrid movies={movies} />
+    <div className="movie-grid-container">
+      <h2>Highest Rated</h2>
+      <div className="movie-grid">
+        {movies.map((movie) => (
+          <MovieGrid key={movie._id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+export default HighestRating;
