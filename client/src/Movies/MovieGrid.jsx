@@ -1,11 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import "../styles/movies.css";
 
 export default function MovieGrid({ movies }) {
+  const context = useOutletContext();
+  const finalMovies = movies || context?.movies || [];
+
   return (
     <div className="grid">
-      {movies.map(m => (
+      {finalMovies.map(m => (
         <Link key={m._id} to={`/movies/${m._id}`} className="movie-card">
           <img src={m.posterUrl} alt={m.title} />
           <div className="info">

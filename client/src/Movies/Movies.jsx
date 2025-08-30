@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api.js";
-import { Link, Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar.jsx";
-import MovieGrid from "./MovieGrid.jsx";
-
-import HighestRating from "./HighestRating.jsx";
-import Trending from "./Trending.jsx";
-import Comedy from "./Comedy.jsx";
-import Thriller from "./Thriller.jsx";
-import Horror from "./Horror.jsx";
-import Romance from "./Romance.jsx";
-import FanFavourite from "./FanFavourite.jsx";
-import ActionMovies from "./ActionMovies.jsx";
-
 import "../styles/movies.css";
 
 export default function Movies() {
@@ -46,18 +35,12 @@ export default function Movies() {
   }
 
   return (
-
-
-
-    
-
     <div className="movies-page">
       <div className="side">
         <Sidebar />
       </div>
 
       <div className="main">
-        <div className="movies-main">
         <form className="search" onSubmit={handleSubmit}>
           <input
             placeholder="Search movies..."
@@ -74,18 +57,8 @@ export default function Movies() {
           </select>
         </form>
 
-        <Routes>
-          <Route path="/" element={<MovieGrid movies={movies} />} />
-          <Route path="highest-rating" element={<HighestRating />} />
-          <Route path="trending" element={<Trending />} />
-          <Route path="comedy" element={<Comedy />} />
-          <Route path="thriller" element={<Thriller />} />
-          <Route path="horror" element={<Horror />} />
-          <Route path="romance" element={<Romance />} />
-          <Route path="fan-favourite" element={<FanFavourite />} />
-          <Route path="action" element={<ActionMovies />} />
-        </Routes>
-      </div>
+        {/* All child routes render here */}
+        <Outlet context={{ movies }} />
       </div>
     </div>
   );

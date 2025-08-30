@@ -20,7 +20,7 @@ app.use(rateLimit({ windowMs: 60_000, limit: 200 }));
 
 app.get("/", (req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRoutes);
-app.use("/api/movies", movieRoutes);
+app.use("/api/movies", movieRoutes);   // ✅ matches ActionMovies.jsx
 app.use("/api/comments", commentRoutes);
 
 app.use(notFound);

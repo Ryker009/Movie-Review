@@ -12,7 +12,7 @@ const parseNum = (val, def) => {
   return Number.isNaN(n) || n <= 0 ? def : n;
 };
 
-// ------------------- List movies (basic search, genre filter & pagination) -------------------
+// ------------------- List movies (search, genre filter & pagination) -------------------
 router.get("/", async (req, res, next) => {
   try {
     const { q = "", genre = "", page = 1, limit = 24 } = req.query;
@@ -22,7 +22,7 @@ router.get("/", async (req, res, next) => {
 
     const filter = {};
     if (q) filter.title = { $regex: q, $options: "i" };
-    if (genre) filter.genre = genre; // 🔹 NEW: genre filter
+    if (genre) filter.genres = genre; // 🔹 match against array field "genres"
 
     const docs = await Movie.find(filter)
       .sort({ createdAt: -1 })
