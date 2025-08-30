@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getMoviesByGenre } from '../../services/api';
+// CORRECTED PATHS
+import { getMoviesByGenre } from '../services/api';
 import MovieGrid from './MovieGrid';
-import '../../styles/movies.css';
+import '../styles/movies.css';
 
 const ActionMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -9,7 +10,6 @@ const ActionMovies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        // Use the new function to get movies by genre
         const { data } = await getMoviesByGenre('Action');
         setMovies(data);
       } catch (error) {

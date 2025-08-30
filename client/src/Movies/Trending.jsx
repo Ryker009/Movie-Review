@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getTrendingMovies } from '../../services/api';
+// CORRECTED PATHS
+import { getTrendingMovies } from '../services/api';
 import MovieGrid from './MovieGrid';
-import '../../styles/movies.css';
+import '../styles/movies.css';
 
 const Trending = () => {
   const [movies, setMovies] = useState([]);

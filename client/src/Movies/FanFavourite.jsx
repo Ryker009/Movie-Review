@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getFanFavouriteMovies } from '../../services/api';
+// CORRECTED PATHS
+import { getFanFavouriteMovies } from '../services/api';
 import MovieGrid from './MovieGrid';
-import '../../styles/movies.css';
+import '../styles/movies.css';
 
 const FanFavourite = () => {
   const [movies, setMovies] = useState([]);

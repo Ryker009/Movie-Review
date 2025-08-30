@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getMoviesByGenre } from '../../services/api';
+// CORRECTED PATHS
+import { getMoviesByGenre } from '../services/api';
 import MovieGrid from './MovieGrid';
-import '../../styles/movies.css';
+import '../styles/movies.css';
 
 const Romance = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +12,7 @@ const Romance = () => {
       try {
         const { data } = await getMoviesByGenre('Romance');
         setMovies(data);
-      } catch (error) => {
+      } catch (error) {
         console.error('Failed to fetch romance movies:', error);
       }
     };

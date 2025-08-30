@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getHighestRatedMovies } from '../../services/api';
+// CORRECTED PATHS
+import { getHighestRatedMovies } from '../services/api';
 import MovieGrid from './MovieGrid';
-import '../../styles/movies.css';
+import '../styles/movies.css';
 
 const HighestRating = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +12,7 @@ const HighestRating = () => {
       try {
         const { data } = await getHighestRatedMovies();
         setMovies(data);
-      } catch (error) => {
+      } catch (error) {
         console.error('Failed to fetch highest rated movies:', error);
       }
     };
