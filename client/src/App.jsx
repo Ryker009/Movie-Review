@@ -6,10 +6,14 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Movies from "./Movies/Movies.jsx";   // ✅ corrected path (was ./Movies/Movies.jsx)
 import MovieGrid from "./Movies/MovieGrid.jsx";
-import ActionMovies from "./Movies/ActionMovies.jsx";
 import MovieDetails from "./pages/MovieDetails.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { setAuthToken } from "./services/api.js";
+
+import ActionMovies from "./Movies/ActionMovies.jsx";
+import Romance from "./Movies/Romance.jsx";
+import Drama from "./Movies/Drama.jsx";
+import SciFi from "./Movies/Sci-Fi.jsx";
 
 const token = localStorage.getItem("token");
 setAuthToken(token);
@@ -36,6 +40,9 @@ export default function App() {
 
           {/* Genre page */}
           <Route path="action" element={<ActionMovies />} />
+          <Route path="romance" element={<Romance />} />
+          <Route path="sci-fi" element={<SciFi />} />
+          <Route path="drama" element={<Drama />} />
 
           {/* Movie details */}
           <Route

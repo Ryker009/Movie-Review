@@ -12,10 +12,10 @@ const parseNum = (val, def) => {
   return Number.isNaN(n) || n <= 0 ? def : n;
 };
 
-// ------------------- List movies (search, genre filter & pagination) -------------------
+// ------------------- List movies (search, genre filter, sorting & pagination) -------------------
 router.get("/", async (req, res, next) => {
   try {
-    const { q = "", genre = "", page = 1, limit = 24 } = req.query;
+    const { q = "", genre = "", page = 1, limit = 24, sort = "latest" } = req.query;
 
     const pageNum = parseNum(page, 1);
     const limitNum = parseNum(limit, 24);
@@ -24,8 +24,15 @@ router.get("/", async (req, res, next) => {
     if (q) filter.title = { $regex: q, $options: "i" };
     if (genre) filter.genres = genre; // 🔹 match against array field "genres"
 
+    // ✅ Sorting options
+    let sortOption = { createdAt: -1 }; // default = latest
+    if (sort === "highest") sortOption = { avgRating: -1 };
+    else if (sort === "lowest") sortOption = { avgRating: 1 };
+    else if (sort === "name") sortOption = { title: 1 };
+    else if (sort === "name-desc") sortOption = { title: -1 }; // optional Z–A
+
     const docs = await Movie.find(filter)
-      .sort({ createdAt: -1 })
+      .sort(sortOption)
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum);
 
