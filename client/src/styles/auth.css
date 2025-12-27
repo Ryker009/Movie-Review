@@ -7,6 +7,14 @@
   border-radius: 12px;
 }
 
+.logBox{
+  display: flex;
+}
+
+.stripLane{
+  display: flex;
+}
+
 .auth h2 {
   margin-top: 0;
 }

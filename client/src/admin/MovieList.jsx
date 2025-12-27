@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getMovies, deleteMovie } from "../services/adminApi.js";
 
+import './MovieList.css';
+
 export default function MovieList() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);

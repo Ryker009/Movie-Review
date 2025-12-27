@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addMovie } from "../services/adminApi.js";
 
+import "./AddMovie.css";
+
 export default function AddMovie() {
   const [form, setForm] = useState({
     title: "",

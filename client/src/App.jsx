@@ -1,3 +1,4 @@
+
 // client/src/App.jsx
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -10,6 +11,7 @@ import MovieGrid from "./Movies/MovieGrid.jsx";
 import MovieDetails from "./pages/MovieDetails.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { setAuthToken } from "./services/api.js";
+import { useAuth } from "./context/AuthContext.jsx"; // Import useAuth
 
 import ActionMovies from "./Movies/ActionMovies.jsx";
 import Romance from "./Movies/Romance.jsx";
@@ -22,10 +24,13 @@ import AddMovie from "./admin/AddMovie.jsx";
 import EditMovie from "./admin/EditMovie.jsx";
 import MovieList from "./admin/MovieList.jsx";
 
-const token = localStorage.getItem("token");
-setAuthToken(token);
-
 export default function App() {
+  const { user } = useAuth(); // Get user from AuthContext
+  const token = localStorage.getItem("token");
+  if (token) {
+    setAuthToken(token);
+  }
+
   return (
     <>
       <Navbar />
