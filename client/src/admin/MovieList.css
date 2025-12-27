@@ -6,6 +6,18 @@
   gap: 15px;
 }
 
+.adminBtn{
+  width: 200px;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: #00d9ff;
+}
+
+.adminBtn:hover{
+  background-color: #028cba;
+}
+
 .movie-row {
   display: flex;
   align-items: center;

@@ -39,7 +39,7 @@ export default function MovieList() {
   return (
     <div className="admin-page">
       <h2>Movies</h2>
-      <button onClick={() => navigate("/admin/add")}>Add Movie</button>
+      <button className="adminBtn" onClick={() => navigate("/admin/add")}>Add Movie</button>
       <div className="movie-list">
         {movies.map(m => (
           <div key={m._id} className="movie-row">

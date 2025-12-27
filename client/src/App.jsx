@@ -1,4 +1,3 @@
-
 // client/src/App.jsx
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -36,8 +35,34 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={token ? <Navigate to="/movies" /> : <Login />} />
-        <Route path="/register" element={token ? <Navigate to="/movies" /> : <Register />} />
+        <Route
+          path="/login"
+          element={
+            token ? (
+              user?.role === "admin" ? (
+                <Navigate to="/admin" />
+              ) : (
+                <Navigate to="/movies" />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            token ? (
+              user?.role === "admin" ? (
+                <Navigate to="/admin" />
+              ) : (
+                <Navigate to="/movies" />
+              )
+            ) : (
+              <Register />
+            )
+          }
+        />
 
         <Route path="/movies" element={<Movies />}>
           <Route index element={<MovieGrid />} />
@@ -45,7 +70,14 @@ export default function App() {
           <Route path="romance" element={<Romance />} />
           <Route path="sci-fi" element={<SciFi />} />
           <Route path="drama" element={<Drama />} />
-          <Route path=":id" element={<ProtectedRoute><MovieDetails /></ProtectedRoute>} />
+          <Route
+            path=":id"
+            element={
+              <ProtectedRoute>
+                <MovieDetails />
+              </ProtectedRoute>
+            }
+          />
         </Route>
 
         {/* Admin routes (protected by role="admin") */}
